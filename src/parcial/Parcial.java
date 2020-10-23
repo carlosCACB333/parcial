@@ -5,6 +5,7 @@
  */
 package parcial;
 
+import ventanas.login;
 import ventanas.ventana1;
 
 /**
@@ -19,7 +20,7 @@ public class Parcial {
          public static void main(String[] args) {
                   // TODO code application logic here
                   
-                  (new ventana1()).setVisible(true);
+                  (new login()).setVisible(true);
          }
          
 }

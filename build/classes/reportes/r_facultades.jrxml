@@ -33,7 +33,7 @@
 		<band height="27" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="390" height="20" uuid="3216547e-b604-475d-aec8-5d0dfa7a8f46"/>
-				<text><![CDATA[nomfac]]></text>
+				<text><![CDATA[faculctad]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -53,7 +53,20 @@
 			</subreport>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="390" y="28" width="80" height="20" uuid="c20910e8-566d-479f-a052-a0efd559174e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="470" y="28" width="40" height="20" uuid="4f2d36e6-9637-42e1-a4fc-fb6c8a99a0c2"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 	<summary>
-		<band height="10" splitType="Stretch"/>
+		<band height="186" splitType="Stretch"/>
 	</summary>
 </jasperReport>

@@ -33,7 +33,7 @@ public class control {
                   try {
                            Class.forName("com.mysql.cj.jdbc.Driver");
                            /// conec = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestion_materiales", "root", "mysql");
-                           conec = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_chiplaptos?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "mysql");
+                           conec = DriverManager.getConnection("jdbc:mysql://localhost:3306/evaluacion?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "mysql");
                            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
                   } catch (Exception e) {
                            System.out.println(" fallo en la conexion");
