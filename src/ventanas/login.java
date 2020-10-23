@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class login extends javax.swing.JFrame {
-         
+
          int contador = 0;
 
          /**
@@ -109,14 +109,19 @@ public class login extends javax.swing.JFrame {
          private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                   // TODO add your handling code here:
                   if (usu.getText().trim().length() != 0 && clave.getPassword().length != 0) {
-                           
+
                            String sql = String.format("call login('%s','%s');", usu.getText().trim(), new String(clave.getPassword()));
                            String res = control.returnData(sql);
                            if (!res.equalsIgnoreCase("-1")) {
+
+                                    sql = String.format("select * from usuario where nomus='%s' and clavusr=md5('%s')", usu.getText().trim(), new String(clave.getPassword()));
+
+                                    String usuario_id = control.returnData(sql);
+
                                     JOptionPane.showMessageDialog(jButton1, "permitido");
                                     this.setVisible(false);
-                                    (new principal()).setVisible(true);
-                                    
+                                    (new principal(usuario_id)).setVisible(true);
+
                            } else {
                                     JOptionPane.showMessageDialog(jButton1, "acceso denegado!");
                                     contador++;
@@ -124,11 +129,11 @@ public class login extends javax.swing.JFrame {
                                     if (i == 0) {
                                              System.exit(0);
                                     }
-                                    
+
                                     lb_intento.setText("quedan " + i + " intento ");
-                                    
+
                            }
-                           
+
                   } else {
                            JOptionPane.showMessageDialog(null, "llenene todo los campos");
                   }

@@ -22,6 +22,7 @@ import jxl.biff.drawing.ComboBox;
  */
 public class evaluacion extends javax.swing.JFrame {
 
+         String usuario_id = "1";
          DefaultTableModel modelo = new DefaultTableModel();
 
          /**
@@ -32,12 +33,21 @@ public class evaluacion extends javax.swing.JFrame {
                   control.fillTable2(tabla1, "select * from v_ciudadano");
                   control.fillCombo(cb_criterio, "select nomcrite from criterio;");
 
-                  modelo.addColumn("idciudadano");
-                  modelo.addColumn("nombre");
-                  modelo.addColumn("apellido");
                   modelo.addColumn("criterio");
                   modelo.addColumn("valor");
                   tabla2.setModel(modelo);
+         }
+
+         public evaluacion(String usuario_id) {
+                  initComponents();
+                  control.fillTable2(tabla1, "select * from v_ciudadano");
+                  control.fillCombo(cb_criterio, "select nomcrite from criterio;");
+
+                  modelo.addColumn("criterio");
+                  modelo.addColumn("valor");
+                  tabla2.setModel(modelo);
+
+                  this.usuario_id = usuario_id;
          }
 
          /**
@@ -52,7 +62,6 @@ public class evaluacion extends javax.swing.JFrame {
 
                   jScrollPane1 = new javax.swing.JScrollPane();
                   tabla1 = new javax.swing.JTable();
-                  jLabel1 = new javax.swing.JLabel();
                   rango = new javax.swing.JSpinner();
                   jLabel2 = new javax.swing.JLabel();
                   cb_criterio = new javax.swing.JComboBox<>();
@@ -60,8 +69,18 @@ public class evaluacion extends javax.swing.JFrame {
                   jScrollPane2 = new javax.swing.JScrollPane();
                   tabla2 = new javax.swing.JTable();
                   jButton1 = new javax.swing.JButton();
+                  jLabel4 = new javax.swing.JLabel();
+                  buscar = new javax.swing.JTextField();
+                  jButton2 = new javax.swing.JButton();
+                  lb_info = new javax.swing.JLabel();
+                  jLabel1 = new javax.swing.JLabel();
+                  total = new javax.swing.JLabel();
+                  jScrollPane3 = new javax.swing.JScrollPane();
+                  jTextArea1 = new javax.swing.JTextArea();
+                  jLabel5 = new javax.swing.JLabel();
 
                   setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                  getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
                   tabla1.setModel(new javax.swing.table.DefaultTableModel(
                            new Object [][] {
@@ -74,17 +93,24 @@ public class evaluacion extends javax.swing.JFrame {
                                     "Title 1", "Title 2", "Title 3", "Title 4"
                            }
                   ));
+                  tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
+                           public void mousePressed(java.awt.event.MouseEvent evt) {
+                                    tabla1MousePressed(evt);
+                           }
+                  });
                   jScrollPane1.setViewportView(tabla1);
 
-                  jLabel1.setText("ciudadano");
+                  getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 77, 880, 115));
 
                   rango.addKeyListener(new java.awt.event.KeyAdapter() {
                            public void keyTyped(java.awt.event.KeyEvent evt) {
                                     rangoKeyTyped(evt);
                            }
                   });
+                  getContentPane().add(rango, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 198, 58, -1));
 
                   jLabel2.setText("condicion a evaluar");
+                  getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 203, -1, -1));
 
                   cb_criterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
                   cb_criterio.addActionListener(new java.awt.event.ActionListener() {
@@ -92,8 +118,10 @@ public class evaluacion extends javax.swing.JFrame {
                                     cb_criterioActionPerformed(evt);
                            }
                   });
+                  getContentPane().add(cb_criterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 198, 152, -1));
 
                   jLabel3.setText("valor");
+                  getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 203, 44, -1));
 
                   tabla2.setModel(new javax.swing.table.DefaultTableModel(
                            new Object [][] {
@@ -108,74 +136,74 @@ public class evaluacion extends javax.swing.JFrame {
                   ));
                   jScrollPane2.setViewportView(tabla2);
 
+                  getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 624, 100));
+
                   jButton1.setText("agregar");
                   jButton1.addActionListener(new java.awt.event.ActionListener() {
                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                     jButton1ActionPerformed(evt);
                            }
                   });
+                  getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, 77, -1));
 
-                  javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-                  getContentPane().setLayout(layout);
-                  layout.setHorizontalGroup(
-                           layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                           .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                             .addGroup(layout.createSequentialGroup()
-                                                      .addGap(98, 98, 98)
-                                                      .addComponent(jLabel1))
-                                             .addGroup(layout.createSequentialGroup()
-                                                      .addContainerGap()
-                                                      .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                             .addGroup(layout.createSequentialGroup()
-                                                      .addGap(35, 35, 35)
-                                                      .addComponent(jLabel2)
-                                                      .addGap(18, 18, 18)
-                                                      .addComponent(cb_criterio, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                      .addGap(42, 42, 42)
-                                                      .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                      .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                      .addComponent(rango, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                             .addGroup(layout.createSequentialGroup()
-                                                      .addGap(102, 102, 102)
-                                                      .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addContainerGap(50, Short.MAX_VALUE))
-                           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGap(0, 0, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(171, 171, 171))
-                  );
-                  layout.setVerticalGroup(
-                           layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                             .addComponent(jLabel2)
-                                             .addComponent(cb_criterio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                             .addComponent(jLabel3)
-                                             .addComponent(rango, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(2, 2, 2)
-                                    .addComponent(jButton1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(210, 210, 210))
-                  );
+                  jLabel4.setText("buscar ciudadano");
+                  getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 47, -1, -1));
+
+                  buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+                           public void keyTyped(java.awt.event.KeyEvent evt) {
+                                    buscarKeyTyped(evt);
+                           }
+                  });
+                  getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 43, 529, -1));
+
+                  jButton2.setText("grabar calificacion");
+                  jButton2.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jButton2ActionPerformed(evt);
+                           }
+                  });
+                  getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 510, 260, 40));
+
+                  lb_info.setText("no se ha seleccionado");
+                  getContentPane().add(lb_info, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 290, -1));
+
+                  jLabel1.setText("puntaje totas de vulnerabilidad : ");
+                  getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, -1, -1));
+
+                  total.setText("0");
+                  getContentPane().add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 20, -1));
+
+                  jTextArea1.setColumns(20);
+                  jTextArea1.setRows(5);
+                  jScrollPane3.setViewportView(jTextArea1);
+
+                  getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 500, 240, 70));
+
+                  jLabel5.setText("observaciones");
+                  getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 520, -1, -1));
 
                   pack();
          }// </editor-fold>//GEN-END:initComponents
+public int hallarV() {
+                  int cant = 0;
+                  for (int i = 0; i < tabla2.getRowCount(); i++) {
+                           cant += Integer.parseInt(tabla2.getValueAt(i, 1).toString());
+
+                  }
+                  return cant;
+         }
 
          private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                   // TODO add your handling code here:
                   if (tabla1.getSelectedRowCount() == 1) {
                            if (cb_criterio.getSelectedIndex() != -1) {
-                                    if (!validar.buscarDatoEnJTable(tabla2, cb_criterio.getSelectedItem().toString(), 3)) {
-                                             
-                                             String []datos={tabla1.getValueAt(tabla1.getSelectedRow(), 0).toString()};
-                                            
+                                    if (!validar.buscarDatoEnJTable(tabla2, cb_criterio.getSelectedItem().toString(), 0)) {
+
+                                             String[] datos = {
+                                                      cb_criterio.getSelectedItem().toString(),
+                                                      rango.getValue().toString()};
+                                             modelo.addRow(datos);
+                                             total.setText(hallarV() + "");
                                     } else {
                                              JOptionPane.showMessageDialog(null, "ya se encuentra añadido");
                                     }
@@ -205,7 +233,7 @@ public class evaluacion extends javax.swing.JFrame {
 
                                     }
 
-                                    rango.setModel(new SpinnerNumberModel(0, min, max, 1));
+                                    rango.setModel(new SpinnerNumberModel(min, min, max, 1));
                            } catch (SQLException ex) {
                                     Logger.getLogger(evaluacion.class.getName()).log(Level.SEVERE, null, ex);
                            }
@@ -216,6 +244,45 @@ public class evaluacion extends javax.swing.JFrame {
                   // TODO add your handling code here:
 
          }//GEN-LAST:event_rangoKeyTyped
+
+         private void buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarKeyTyped
+                  // TODO add your handling code here:
+                  int pos = buscar.getCaretPosition();
+                  String parametro = (buscar.getText().substring(0, pos) + evt.getKeyChar() + buscar.getText().substring(pos)).trim();
+
+                  if (parametro.trim().length() == 0) {
+                           control.fillTable2(tabla1, "select * from v_ciudadano");
+                  } else {
+
+                           String sql = "select * from v_ciudadano where nombre like '%"
+                                   + parametro + "%' or dni like '%" + parametro + "%' or apellido like '%" + parametro + "%'";
+                           control.fillTable2(tabla1, sql);
+
+                  }
+         }//GEN-LAST:event_buscarKeyTyped
+
+         private void tabla1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MousePressed
+                  lb_info.setText(tabla1.getValueAt(tabla1.getSelectedRow(), 2).toString() + "  "
+                          + tabla1.getValueAt(tabla1.getSelectedRow(), 3).toString());
+
+                  control.limTable(modelo);
+                  total.setText("0");
+         }//GEN-LAST:event_tabla1MousePressed
+
+         private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+                  // TODO add your handling code here:
+
+                  if (tabla2.getRowCount() != 0) {
+                           String ciudadano_id = tabla2.getValueAt(0, 0).toString();
+                           String obser = jTextArea1.getText();
+
+                           String sql = String.format("insert into valorvulnerabilidad values(null,%s)", hallarV());
+
+                  } else {
+                           JOptionPane.showMessageDialog(null, "no hay nada para grabar");
+                  }
+
+         }//GEN-LAST:event_jButton2ActionPerformed
 
          /**
           * @param args the command line arguments
@@ -253,15 +320,23 @@ public class evaluacion extends javax.swing.JFrame {
          }
 
          // Variables declaration - do not modify//GEN-BEGIN:variables
+         private javax.swing.JTextField buscar;
          private javax.swing.JComboBox<String> cb_criterio;
          private javax.swing.JButton jButton1;
+         private javax.swing.JButton jButton2;
          private javax.swing.JLabel jLabel1;
          private javax.swing.JLabel jLabel2;
          private javax.swing.JLabel jLabel3;
+         private javax.swing.JLabel jLabel4;
+         private javax.swing.JLabel jLabel5;
          private javax.swing.JScrollPane jScrollPane1;
          private javax.swing.JScrollPane jScrollPane2;
+         private javax.swing.JScrollPane jScrollPane3;
+         private javax.swing.JTextArea jTextArea1;
+         private javax.swing.JLabel lb_info;
          private javax.swing.JSpinner rango;
          private javax.swing.JTable tabla1;
          private javax.swing.JTable tabla2;
+         private javax.swing.JLabel total;
          // End of variables declaration//GEN-END:variables
 }

@@ -6,7 +6,7 @@
 package parcial;
 
 import ventanas.login;
-import ventanas.ventana1;
+
 
 /**
  *

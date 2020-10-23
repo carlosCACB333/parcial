@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-public class cuidadanos extends javax.swing.JFrame {
+public class ciudadanos extends javax.swing.JFrame {
 
          /**
           * Creates new form cuidadanos
           */
-         public cuidadanos() {
+         public ciudadanos() {
                   initComponents();
                   control.fillTable2(tabla, "select * from v_ciudadano");
                   control.fillCombo(cb_barrio, "select barrio from v_barrio");
@@ -220,20 +220,21 @@ public class cuidadanos extends javax.swing.JFrame {
                                     }
                            }
                   } catch (ClassNotFoundException ex) {
-                           java.util.logging.Logger.getLogger(cuidadanos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                           java.util.logging.Logger.getLogger(ciudadanos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                   } catch (InstantiationException ex) {
-                           java.util.logging.Logger.getLogger(cuidadanos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                           java.util.logging.Logger.getLogger(ciudadanos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                   } catch (IllegalAccessException ex) {
-                           java.util.logging.Logger.getLogger(cuidadanos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                           java.util.logging.Logger.getLogger(ciudadanos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                   } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                           java.util.logging.Logger.getLogger(cuidadanos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                           java.util.logging.Logger.getLogger(ciudadanos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                   }
+                  //</editor-fold>
                   //</editor-fold>
 
                   /* Create and display the form */
                   java.awt.EventQueue.invokeLater(new Runnable() {
                            public void run() {
-                                    new cuidadanos().setVisible(true);
+                                    new ciudadanos().setVisible(true);
                            }
                   });
          }

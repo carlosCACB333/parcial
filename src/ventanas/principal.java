@@ -11,11 +11,20 @@ package ventanas;
  */
 public class principal extends javax.swing.JFrame {
 
+         String usuario_id = "1";
+
          /**
           * Creates new form principal
           */
          public principal() {
                   initComponents();
+
+         }
+
+         public principal(String id) {
+                  initComponents();
+                  usuario_id = id;
+
          }
 
          /**
@@ -110,7 +119,7 @@ public class principal extends javax.swing.JFrame {
 
          private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
                   // TODO add your handling code here:
-
+                  (new ciudadanos()).setVisible(true);
          }//GEN-LAST:event_jMenuItem4ActionPerformed
 
          private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
