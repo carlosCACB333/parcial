@@ -35,6 +35,7 @@ public class principal extends javax.swing.JFrame {
                   jMenuItem1 = new javax.swing.JMenuItem();
                   jMenuItem4 = new javax.swing.JMenuItem();
                   jMenu2 = new javax.swing.JMenu();
+                  jMenuItem5 = new javax.swing.JMenuItem();
 
                   jMenuItem3.setText("jMenuItem3");
 
@@ -51,14 +52,33 @@ public class principal extends javax.swing.JFrame {
                   jMenu1.add(jMenuItem2);
 
                   jMenuItem1.setText("registrar barrio");
+                  jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jMenuItem1ActionPerformed(evt);
+                           }
+                  });
                   jMenu1.add(jMenuItem1);
 
                   jMenuItem4.setText("registrar ciudadano");
+                  jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jMenuItem4ActionPerformed(evt);
+                           }
+                  });
                   jMenu1.add(jMenuItem4);
 
                   jMenuBar1.add(jMenu1);
 
-                  jMenu2.setText("Edit");
+                  jMenu2.setText("evaluacion");
+
+                  jMenuItem5.setText("evaluar");
+                  jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jMenuItem5ActionPerformed(evt);
+                           }
+                  });
+                  jMenu2.add(jMenuItem5);
+
                   jMenuBar1.add(jMenu2);
 
                   setJMenuBar(jMenuBar1);
@@ -79,8 +99,24 @@ public class principal extends javax.swing.JFrame {
 
          private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
                   // TODO add your handling code here:
-                  
+                  (new ciudad()).setVisible(true);
+
          }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+         private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+                  // TODO add your handling code here:
+                  (new barrio()).setVisible(true);
+         }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+         private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+                  // TODO add your handling code here:
+
+         }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+         private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+                  // TODO add your handling code here:
+                  (new evaluacion()).setVisible(true);
+         }//GEN-LAST:event_jMenuItem5ActionPerformed
 
          /**
           * @param args the command line arguments
@@ -125,5 +161,6 @@ public class principal extends javax.swing.JFrame {
          private javax.swing.JMenuItem jMenuItem2;
          private javax.swing.JMenuItem jMenuItem3;
          private javax.swing.JMenuItem jMenuItem4;
+         private javax.swing.JMenuItem jMenuItem5;
          // End of variables declaration//GEN-END:variables
 }

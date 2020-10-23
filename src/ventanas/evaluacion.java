@@ -172,8 +172,10 @@ public class evaluacion extends javax.swing.JFrame {
                   // TODO add your handling code here:
                   if (tabla1.getSelectedRowCount() == 1) {
                            if (cb_criterio.getSelectedIndex() != -1) {
-                                    if (validar.buscarDatoEnJTable(tabla2, cb_criterio.getSelectedItem().toString(), 3)) {
-
+                                    if (!validar.buscarDatoEnJTable(tabla2, cb_criterio.getSelectedItem().toString(), 3)) {
+                                             
+                                             String []datos={tabla1.getValueAt(tabla1.getSelectedRow(), 0).toString()};
+                                            
                                     } else {
                                              JOptionPane.showMessageDialog(null, "ya se encuentra añadido");
                                     }
