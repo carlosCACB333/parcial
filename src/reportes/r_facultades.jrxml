@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="51f255b8-f02b-4b95-a982-4f71fef1db1b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\LENOVO\\OneDrive - Universidad Nacional Santiago Antúnez de Mayolo\\progra\\programas\\parcial\\src\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from facultad]]>
+	</queryString>
+	<field name="idFacultad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomfac" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="210" y="12" width="206" height="37" uuid="74f65ad9-d5f6-4039-9718-fc61477b257f"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[facultades]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="390" height="20" uuid="3216547e-b604-475d-aec8-5d0dfa7a8f46"/>
+				<text><![CDATA[faculctad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="390" height="20" uuid="761ca787-e740-49e5-9c1b-a44bfcd38d13"/>
+				<textFieldExpression><![CDATA[$F{nomfac}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="20" width="200" height="61" uuid="a8c88980-c347-47b2-9d6f-b0bc1c45af87"/>
+				<subreportParameter name="facultad_id">
+					<subreportParameterExpression><![CDATA[$F{idFacultad}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "escuela.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="390" y="28" width="80" height="20" uuid="c20910e8-566d-479f-a052-a0efd559174e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="470" y="28" width="40" height="20" uuid="4f2d36e6-9637-42e1-a4fc-fb6c8a99a0c2"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="186" splitType="Stretch"/>
+	</summary>
+</jasperReport>

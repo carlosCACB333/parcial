@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="555" pageHeight="802" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="011ad24a-f52d-431c-a1e4-7a8510d7bb5f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="facultad_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from escuela where idfacultad=$P{facultad_id}]]>
+	</queryString>
+	<field name="idEscuela" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomesc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idFacultad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="147" y="0" width="100" height="20" uuid="fb728595-cae4-470e-968a-353e6cb621cf"/>
+				<text><![CDATA[idEscuela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="1" width="213" height="20" uuid="590f9db9-3dff-4c41-bcc7-6bffdc944d3b"/>
+				<text><![CDATA[nomesc]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="247" y="0" width="213" height="20" uuid="9d75f4a9-132f-4036-a66b-e917e0ec6baf"/>
+				<textFieldExpression><![CDATA[$F{nomesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="147" y="0" width="100" height="20" uuid="c94d7413-f7da-4825-b4fd-74e4527eb7fe"/>
+				<textFieldExpression><![CDATA[$F{idEscuela}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
