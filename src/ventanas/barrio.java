@@ -21,6 +21,8 @@ public class barrio extends javax.swing.JFrame {
                   initComponents();
                   control.fillCombo(cb_ciudad, "select nomciud from ciudad");
                   control.fillTable2(jTable1, "select * from v_barrio");
+                      setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    setLocationRelativeTo(null);
          }
 
          /**

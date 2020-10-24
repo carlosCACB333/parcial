@@ -22,6 +22,8 @@ public class ciudad extends javax.swing.JFrame {
                   initComponents();
                   control.fillTable2(tabla, "select * from ciudad");
                   validar.ocultarColumna(tabla, 0);
+                    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    setLocationRelativeTo(null);
          }
 
          /**

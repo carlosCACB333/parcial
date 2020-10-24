@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import jxl.biff.drawing.ComboBox;
@@ -36,6 +37,10 @@ public class evaluacion extends javax.swing.JFrame {
                   modelo.addColumn("criterio");
                   modelo.addColumn("valor");
                   tabla2.setModel(modelo);
+                  ((JSpinner.DefaultEditor) rango.getEditor()).getTextField().setEditable(false);
+                  
+                    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    setLocationRelativeTo(null);
          }
 
          public evaluacion(String usuario_id) {
@@ -48,6 +53,11 @@ public class evaluacion extends javax.swing.JFrame {
                   tabla2.setModel(modelo);
 
                   this.usuario_id = usuario_id;
+
+                  ((JSpinner.DefaultEditor) rango.getEditor()).getTextField().setEditable(false);
+                  
+                    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    setLocationRelativeTo(null);
          }
 
          /**
@@ -78,6 +88,10 @@ public class evaluacion extends javax.swing.JFrame {
                   jScrollPane3 = new javax.swing.JScrollPane();
                   jTextArea1 = new javax.swing.JTextArea();
                   jLabel5 = new javax.swing.JLabel();
+                  jButton3 = new javax.swing.JButton();
+                  jLabel6 = new javax.swing.JLabel();
+                  cb_vulnerable = new javax.swing.JComboBox<>();
+                  jSeparator1 = new javax.swing.JSeparator();
 
                   setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                   getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -107,10 +121,10 @@ public class evaluacion extends javax.swing.JFrame {
                                     rangoKeyTyped(evt);
                            }
                   });
-                  getContentPane().add(rango, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 198, 58, -1));
+                  getContentPane().add(rango, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 58, -1));
 
                   jLabel2.setText("condicion a evaluar");
-                  getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 203, -1, -1));
+                  getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
                   cb_criterio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
                   cb_criterio.addActionListener(new java.awt.event.ActionListener() {
@@ -118,10 +132,10 @@ public class evaluacion extends javax.swing.JFrame {
                                     cb_criterioActionPerformed(evt);
                            }
                   });
-                  getContentPane().add(cb_criterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 198, 152, -1));
+                  getContentPane().add(cb_criterio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 152, -1));
 
                   jLabel3.setText("valor");
-                  getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 203, 44, -1));
+                  getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 44, -1));
 
                   tabla2.setModel(new javax.swing.table.DefaultTableModel(
                            new Object [][] {
@@ -136,7 +150,7 @@ public class evaluacion extends javax.swing.JFrame {
                   ));
                   jScrollPane2.setViewportView(tabla2);
 
-                  getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 624, 100));
+                  getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 650, 100));
 
                   jButton1.setText("agregar");
                   jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +158,7 @@ public class evaluacion extends javax.swing.JFrame {
                                     jButton1ActionPerformed(evt);
                            }
                   });
-                  getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, 77, -1));
+                  getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 77, -1));
 
                   jLabel4.setText("buscar ciudadano");
                   getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 47, -1, -1));
@@ -156,31 +170,49 @@ public class evaluacion extends javax.swing.JFrame {
                   });
                   getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 43, 529, -1));
 
-                  jButton2.setText("grabar calificacion");
+                  jButton2.setText("grabar evaluacion");
                   jButton2.addActionListener(new java.awt.event.ActionListener() {
                            public void actionPerformed(java.awt.event.ActionEvent evt) {
                                     jButton2ActionPerformed(evt);
                            }
                   });
-                  getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 510, 260, 40));
+                  getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 560, 260, 60));
 
+                  lb_info.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
                   lb_info.setText("no se ha seleccionado");
                   getContentPane().add(lb_info, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 290, -1));
 
                   jLabel1.setText("puntaje totas de vulnerabilidad : ");
-                  getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, -1, -1));
+                  getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, -1));
 
                   total.setText("0");
-                  getContentPane().add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 20, -1));
+                  getContentPane().add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 460, 40, -1));
 
                   jTextArea1.setColumns(20);
                   jTextArea1.setRows(5);
                   jScrollPane3.setViewportView(jTextArea1);
 
-                  getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 500, 240, 70));
+                  getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 290, 100));
 
                   jLabel5.setText("observaciones");
-                  getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 520, -1, -1));
+                  getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 490, -1, -1));
+
+                  jButton3.setText("limpiar tabla");
+                  jButton3.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jButton3ActionPerformed(evt);
+                           }
+                  });
+                  getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 350, -1, -1));
+
+                  jLabel6.setText("¿se considera vulnerable?");
+                  getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 470, -1, -1));
+
+                  cb_vulnerable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "si", "no" }));
+                  getContentPane().add(cb_vulnerable, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 500, 220, -1));
+
+                  jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+                  getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 30, 150));
 
                   pack();
          }// </editor-fold>//GEN-END:initComponents
@@ -271,18 +303,56 @@ public int hallarV() {
 
          private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
                   // TODO add your handling code here:
+                  int vul = 0;
+                  if (cb_vulnerable.getSelectedItem().toString().equalsIgnoreCase("si")) {
+                           vul = 1;
+                  } else {
+                           vul = 0;
+                  }
 
                   if (tabla2.getRowCount() != 0) {
-                           String ciudadano_id = tabla2.getValueAt(0, 0).toString();
-                           String obser = jTextArea1.getText();
+                           if (!control.checkQuery("select * from valorvulnerabilidad  as v inner join evaluacion  as e on v.idValorVulnerabilidad=e.idValorVulnerabilidad where idCiudadano="
+                                   + tabla1.getValueAt(tabla1.getSelectedRow(), 0))) {
+                                    String ciudadano_id = tabla1.getValueAt(tabla1.getSelectedRow(), 0).toString();
+                                    String obser = jTextArea1.getText();
 
-                           String sql = String.format("insert into valorvulnerabilidad values(null,%s)", hallarV());
+                                    String sql = String.format("insert into valorvulnerabilidad values(null,%s)", hallarV());
+                                    control.update(sql);
 
+                                    String valorVul_id = control.returnData("select idValorVulnerabilidad from valorvulnerabilidad order by idValorVulnerabilidad desc limit 1");
+
+                                    sql = String.format("insert into evaluacion values(null,curdate(),curtime(),'%s' ,'%s',%s,%s,%s)",
+                                            jTextArea1.getText(), ciudadano_id, usuario_id, valorVul_id,vul);
+                                    System.out.println(sql);
+                                    control.update(sql);
+                                    String eval_id = control.returnData("select * from evaluacion order by idevaluacion desc limit 1 ");
+                                    insertarDetalleEval(eval_id);
+                           } else {
+                                    JOptionPane.showMessageDialog(null, "el alumno ya a sido evaluado con anterioridad");
+                           }
+
+                           control.limTable(modelo);
                   } else {
                            JOptionPane.showMessageDialog(null, "no hay nada para grabar");
                   }
 
          }//GEN-LAST:event_jButton2ActionPerformed
+
+         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+                  // TODO add your handling code here:
+                  total.setText("0");
+                  control.limTable(modelo);
+         }//GEN-LAST:event_jButton3ActionPerformed
+         public void insertarDetalleEval(String evaluacion_id) {
+                  for (int i = 0; i < tabla2.getRowCount(); i++) {
+                           String sql = String.format(" select idcriterio from criterio where nomcrite='%s'", tabla2.getValueAt(i, 0));
+                           String criterio_id = control.returnData(sql);
+
+                           sql = String.format("insert into detalleevaluacion values(null,%s,%s,%s);",
+                                   tabla2.getValueAt(i, 1).toString(), criterio_id, evaluacion_id);
+                           control.update(sql);
+                  }
+         }
 
          /**
           * @param args the command line arguments
@@ -322,16 +392,20 @@ public int hallarV() {
          // Variables declaration - do not modify//GEN-BEGIN:variables
          private javax.swing.JTextField buscar;
          private javax.swing.JComboBox<String> cb_criterio;
+         private javax.swing.JComboBox<String> cb_vulnerable;
          private javax.swing.JButton jButton1;
          private javax.swing.JButton jButton2;
+         private javax.swing.JButton jButton3;
          private javax.swing.JLabel jLabel1;
          private javax.swing.JLabel jLabel2;
          private javax.swing.JLabel jLabel3;
          private javax.swing.JLabel jLabel4;
          private javax.swing.JLabel jLabel5;
+         private javax.swing.JLabel jLabel6;
          private javax.swing.JScrollPane jScrollPane1;
          private javax.swing.JScrollPane jScrollPane2;
          private javax.swing.JScrollPane jScrollPane3;
+         private javax.swing.JSeparator jSeparator1;
          private javax.swing.JTextArea jTextArea1;
          private javax.swing.JLabel lb_info;
          private javax.swing.JSpinner rango;

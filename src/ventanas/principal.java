@@ -5,6 +5,16 @@
  */
 package ventanas;
 
+import clases.control;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.DefaultListModel;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
@@ -13,17 +23,62 @@ public class principal extends javax.swing.JFrame {
 
          String usuario_id = "1";
 
+         DefaultListModel modelo = new DefaultListModel();
+
          /**
           * Creates new form principal
           */
          public principal() {
                   initComponents();
 
+                  ResultSet res = control.returnResultset("select * from v_usuario where idusuario=" + usuario_id);
+                  try {
+                           if (res.next()) {
+                                    modelo.addElement("id    " + res.getString(1));
+                                    modelo.addElement("login  " + res.getString(2));
+
+                                    modelo.addElement("dni  " + res.getString(4));
+                                    modelo.addElement("direccion : " + res.getString(5));
+                                    modelo.addElement("genero  :" + res.getString(6));
+                                    modelo.addElement("nombre : " + res.getString(7));
+                                    modelo.addElement("apellido : " + res.getString(8));
+                                    modelo.addElement("tipo de medio : " + res.getString(9));
+                                    modelo.addElement("medio : " + res.getString(10));
+
+                           }
+                  } catch (SQLException ex) {
+                           Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+                  jList1.setModel(modelo);
+               
+                  setLocationRelativeTo(null);
          }
 
          public principal(String id) {
                   initComponents();
                   usuario_id = id;
+
+                  ResultSet res = control.returnResultset("select * from v_usuario where idusuario=" + usuario_id);
+                  try {
+                           if (res.next()) {
+                                    modelo.addElement("id    " + res.getString(1));
+                                    modelo.addElement("login  " + res.getString(2));
+
+                                    modelo.addElement("dni  " + res.getString(4));
+                                    modelo.addElement("direccion : " + res.getString(5));
+                                    modelo.addElement("genero  :" + res.getString(6));
+                                    modelo.addElement("nombre : " + res.getString(7));
+                                    modelo.addElement("apellido : " + res.getString(8));
+                                    modelo.addElement("tipo de medio : " + res.getString(9));
+                                    modelo.addElement("medio : " + res.getString(10));
+
+                           }
+                  } catch (SQLException ex) {
+                           Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+                  jList1.setModel(modelo);
+              
+                  setLocationRelativeTo(null);
 
          }
 
@@ -38,17 +93,27 @@ public class principal extends javax.swing.JFrame {
          private void initComponents() {
 
                   jMenuItem3 = new javax.swing.JMenuItem();
+                  jScrollPane1 = new javax.swing.JScrollPane();
+                  jList1 = new javax.swing.JList<>();
+                  jLabel1 = new javax.swing.JLabel();
                   jMenuBar1 = new javax.swing.JMenuBar();
                   jMenu1 = new javax.swing.JMenu();
                   jMenuItem2 = new javax.swing.JMenuItem();
                   jMenuItem1 = new javax.swing.JMenuItem();
                   jMenuItem4 = new javax.swing.JMenuItem();
+                  jMenuItem8 = new javax.swing.JMenuItem();
                   jMenu2 = new javax.swing.JMenu();
                   jMenuItem5 = new javax.swing.JMenuItem();
+                  jMenu3 = new javax.swing.JMenu();
+                  jMenuItem9 = new javax.swing.JMenuItem();
 
                   jMenuItem3.setText("jMenuItem3");
 
                   setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+                  jScrollPane1.setViewportView(jList1);
+
+                  jLabel1.setText("datos del usuario");
 
                   jMenu1.setText("registrar");
 
@@ -76,6 +141,14 @@ public class principal extends javax.swing.JFrame {
                   });
                   jMenu1.add(jMenuItem4);
 
+                  jMenuItem8.setText("ingresar criterios de calificacon");
+                  jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jMenuItem8ActionPerformed(evt);
+                           }
+                  });
+                  jMenu1.add(jMenuItem8);
+
                   jMenuBar1.add(jMenu1);
 
                   jMenu2.setText("evaluacion");
@@ -90,17 +163,42 @@ public class principal extends javax.swing.JFrame {
 
                   jMenuBar1.add(jMenu2);
 
+                  jMenu3.setText("reportes");
+
+                  jMenuItem9.setText("reportes");
+                  jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jMenuItem9ActionPerformed(evt);
+                           }
+                  });
+                  jMenu3.add(jMenuItem9);
+
+                  jMenuBar1.add(jMenu3);
+
                   setJMenuBar(jMenuBar1);
 
                   javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                   getContentPane().setLayout(layout);
                   layout.setHorizontalGroup(
                            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                           .addGap(0, 592, Short.MAX_VALUE)
+                           .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                             .addGroup(layout.createSequentialGroup()
+                                                      .addGap(149, 149, 149)
+                                                      .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                             .addGroup(layout.createSequentialGroup()
+                                                      .addGap(200, 200, 200)
+                                                      .addComponent(jLabel1)))
+                                    .addContainerGap(224, Short.MAX_VALUE))
                   );
                   layout.setVerticalGroup(
                            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                           .addGap(0, 277, Short.MAX_VALUE)
+                           .addGroup(layout.createSequentialGroup()
+                                    .addGap(21, 21, 21)
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                    .addContainerGap())
                   );
 
                   pack();
@@ -124,8 +222,18 @@ public class principal extends javax.swing.JFrame {
 
          private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
                   // TODO add your handling code here:
-                  (new evaluacion()).setVisible(true);
+                  (new evaluacion(usuario_id)).setVisible(true);
          }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+         private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+                  // TODO add your handling code here:
+                  (new criterio()).setVisible(true);
+         }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+         private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+                  // TODO add your handling code here:
+                  (new reporte()).setVisible(true);
+         }//GEN-LAST:event_jMenuItem9ActionPerformed
 
          /**
           * @param args the command line arguments
@@ -163,13 +271,19 @@ public class principal extends javax.swing.JFrame {
          }
 
          // Variables declaration - do not modify//GEN-BEGIN:variables
+         private javax.swing.JLabel jLabel1;
+         private javax.swing.JList<String> jList1;
          private javax.swing.JMenu jMenu1;
          private javax.swing.JMenu jMenu2;
+         private javax.swing.JMenu jMenu3;
          private javax.swing.JMenuBar jMenuBar1;
          private javax.swing.JMenuItem jMenuItem1;
          private javax.swing.JMenuItem jMenuItem2;
          private javax.swing.JMenuItem jMenuItem3;
          private javax.swing.JMenuItem jMenuItem4;
          private javax.swing.JMenuItem jMenuItem5;
+         private javax.swing.JMenuItem jMenuItem8;
+         private javax.swing.JMenuItem jMenuItem9;
+         private javax.swing.JScrollPane jScrollPane1;
          // End of variables declaration//GEN-END:variables
 }

@@ -38,7 +38,7 @@ public class control {
                   } catch (Exception e) {
                            System.out.println(" fallo en la conexion");
                            JOptionPane.showMessageDialog(null, e.getMessage());
-                           e.printStackTrace();
+                        
 
                   }
                   return conec;
@@ -55,7 +55,7 @@ public class control {
                            }
                   } catch (SQLException ex) {
                            System.out.println(" fallo en llenar el combo");
-                           ex.printStackTrace();
+                        
                            JOptionPane.showMessageDialog(null, ex.getMessage());
                   }
                   comboBox.setSelectedIndex(-1);            
@@ -87,7 +87,7 @@ public class control {
                            }
                   } catch (SQLException ex) {
                            System.out.println(" fallo en llenar la tabla");
-                           ex.printStackTrace();
+                         
                            JOptionPane.showMessageDialog(null, ex.getMessage());
                   }
          }
@@ -105,7 +105,7 @@ public class control {
                            }
                   } catch (SQLException ex) {
                            System.out.println("fallo al llenar la lista ");
-                           ex.printStackTrace();
+                        
                            JOptionPane.showMessageDialog(null, ex.getMessage());
                   }
          }
@@ -124,7 +124,7 @@ public class control {
                            }
                   } catch (SQLException ex) {
                            System.out.println(" error al retornar   un dato");
-                      ex.printStackTrace();
+              
                            JOptionPane.showMessageDialog(null, ex.getMessage());
                   }
                   return data;
@@ -142,7 +142,7 @@ public class control {
                            }
                   } catch (SQLException ex) {
                            System.out.println(" error al verificar consulta ");
-                           ex.printStackTrace();
+                        
                            JOptionPane.showMessageDialog(null, ex.getMessage());
                   }
                   return check;
@@ -169,7 +169,7 @@ public class control {
                                     JOptionPane.showMessageDialog(null, ex.getMessage());
                            }
                            System.out.println("error en update ");
-                           ex.printStackTrace();
+                      
 
                   }
                   return rowsAffected;
@@ -244,7 +244,7 @@ public class control {
 
                   } catch (SQLException ex) {
                            System.out.println("error al llenar el encabezado ");
-                           ex.printStackTrace();
+                        
                            JOptionPane.showMessageDialog(null, ex.getMessage());
                   }
 
@@ -269,7 +269,7 @@ public class control {
                            }
 
                   } catch (JRException ex) {
-                           ex.printStackTrace();
+                       
                            return null;
                   }
          }

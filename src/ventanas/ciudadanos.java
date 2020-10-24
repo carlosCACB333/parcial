@@ -25,6 +25,9 @@ public class ciudadanos extends javax.swing.JFrame {
                   cb_genero.removeAllItems();
                   cb_genero.addItem("masculino");
                   cb_genero.addItem("femenino");
+                  
+                    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    setLocationRelativeTo(null);
          }
 
          /**
