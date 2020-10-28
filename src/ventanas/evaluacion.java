@@ -114,7 +114,7 @@ public class evaluacion extends javax.swing.JFrame {
                   });
                   jScrollPane1.setViewportView(tabla1);
 
-                  getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 77, 880, 115));
+                  getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 77, 1050, 115));
 
                   rango.addKeyListener(new java.awt.event.KeyAdapter() {
                            public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -168,7 +168,7 @@ public class evaluacion extends javax.swing.JFrame {
                                     buscarKeyTyped(evt);
                            }
                   });
-                  getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 43, 529, -1));
+                  getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 43, 870, -1));
 
                   jButton2.setText("grabar evaluacion");
                   jButton2.addActionListener(new java.awt.event.ActionListener() {

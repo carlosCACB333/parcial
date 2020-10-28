@@ -21,6 +21,7 @@ public class login extends javax.swing.JFrame {
           */
          public login() {
                   initComponents();
+                  setLocationRelativeTo(null);
          }
 
          /**
@@ -110,7 +111,7 @@ public class login extends javax.swing.JFrame {
                   // TODO add your handling code here:
                   if (usu.getText().trim().length() != 0 && clave.getPassword().length != 0) {
 
-                           String sql = String.format("call login('%s','%s');", usu.getText().trim(), new String(clave.getPassword()));
+                           String sql = String.format("call login('%s','%s')", usu.getText().trim(), new String(clave.getPassword()));
                            String res = control.returnData(sql);
                            if (!res.equalsIgnoreCase("-1")) {
 

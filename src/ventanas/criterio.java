@@ -21,9 +21,9 @@ public class criterio extends javax.swing.JFrame {
          public criterio() {
                   initComponents();
                   control.fillTable2(tabla, "select * from criterio");
-                  
-                    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                    setLocationRelativeTo(null);
+
+                  setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                  setLocationRelativeTo(null);
          }
 
          /**
@@ -46,6 +46,9 @@ public class criterio extends javax.swing.JFrame {
                   jButton1 = new javax.swing.JButton();
                   jScrollPane1 = new javax.swing.JScrollPane();
                   tabla = new javax.swing.JTable();
+                  jButton2 = new javax.swing.JButton();
+                  jButton3 = new javax.swing.JButton();
+                  buscar = new javax.swing.JTextField();
 
                   setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                   getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -92,7 +95,7 @@ public class criterio extends javax.swing.JFrame {
                                     jButton1ActionPerformed(evt);
                            }
                   });
-                  getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, 213, -1));
+                  getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 160, -1));
 
                   tabla.setModel(new javax.swing.table.DefaultTableModel(
                            new Object [][] {
@@ -105,9 +108,37 @@ public class criterio extends javax.swing.JFrame {
                                     "Title 1", "Title 2", "Title 3", "Title 4"
                            }
                   ));
+                  tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+                           public void mousePressed(java.awt.event.MouseEvent evt) {
+                                    tablaMousePressed(evt);
+                           }
+                  });
                   jScrollPane1.setViewportView(tabla);
 
-                  getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 245, 533, 277));
+                  getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 630, 277));
+
+                  jButton2.setText("actualizar");
+                  jButton2.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jButton2ActionPerformed(evt);
+                           }
+                  });
+                  getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, -1, -1));
+
+                  jButton3.setText("borrar");
+                  jButton3.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jButton3ActionPerformed(evt);
+                           }
+                  });
+                  getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, -1, -1));
+
+                  buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+                           public void keyTyped(java.awt.event.KeyEvent evt) {
+                                    buscarKeyTyped(evt);
+                           }
+                  });
+                  getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 630, -1));
 
                   pack();
          }// </editor-fold>//GEN-END:initComponents
@@ -119,7 +150,7 @@ public class criterio extends javax.swing.JFrame {
          private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                   // TODO add your handling code here:
 
-                  if (!validar.esCajaVacio(nom, min, max)) {
+                  if (!validar.texfielVacio(nom, min, max)) {
                            int num1 = Integer.parseInt(max.getText().trim());
                            int num2 = Integer.parseInt(min.getText().trim());
                            int res = num1 - num2;
@@ -130,7 +161,7 @@ public class criterio extends javax.swing.JFrame {
                                             nom.getText().trim(), min.getText().trim(), max.getText().trim());
                                     if (control.update(sql) > 0) {
                                              JOptionPane.showMessageDialog(null, "se ingreso correctamente");
-                                              control.fillTable2(tabla, "select * from criterio");
+                                             control.fillTable2(tabla, "select * from criterio");
                                     } else {
                                              JOptionPane.showMessageDialog(null, "no se pudo ingresar");
                                     }
@@ -151,6 +182,76 @@ public class criterio extends javax.swing.JFrame {
                   // TODO add your handling code here:
                   validar.Solonumeros(evt);
          }//GEN-LAST:event_maxKeyTyped
+
+         private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+                  // TODO add your handling code here:
+                  if (tabla.getSelectedRowCount() == 1) {
+
+                           if (!validar.texfielVacio(nom, min, max)) {
+                                    int num1 = Integer.parseInt(max.getText().trim());
+                                    int num2 = Integer.parseInt(min.getText().trim());
+                                    int res = num1 - num2;
+
+                                    if (res > 5) {
+
+                                             String sql = String.format("update criterio set nomcrite='%s' , valormin=%s, valormax=%s where idcriterio=%s",
+                                                     nom.getText().trim(), min.getText().trim(), max.getText().trim(),
+                                                     tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
+
+                                             if (control.update(sql) > 0) {
+                                                      control.fillTable2(tabla, "select * from criterio");
+                                                      JOptionPane.showMessageDialog(null, "se actualizo correctamente");
+                                             }
+
+                                    } else {
+                                             JOptionPane.showMessageDialog(null, "el valor maximo debe ser mayor al  minimos por almenos por 5");
+                                    }
+
+                           }
+
+                  } else {
+                           JOptionPane.showMessageDialog(null, "seleccione una fila");
+                  }
+         }//GEN-LAST:event_jButton2ActionPerformed
+
+         private void tablaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMousePressed
+                  // TODO add your handling code here:
+                  nom.setText(tabla.getValueAt(tabla.getSelectedRow(), 1).toString());
+                  min.setText(tabla.getValueAt(tabla.getSelectedRow(), 2).toString());
+                  max.setText(tabla.getValueAt(tabla.getSelectedRow(), 3).toString());
+
+         }//GEN-LAST:event_tablaMousePressed
+
+         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+                  // TODO add your handling code here:
+                  if (tabla.getSelectedRowCount() == 1) {
+                           String sql = String.format("delete from criterio where idcriterio=%s",
+                                   tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
+
+                           if (control.update(sql) > 0) {
+                                    control.fillTable2(tabla, "select * from criterio");
+                                    JOptionPane.showMessageDialog(null, "se borró correctamente");
+                           }
+                  } else {
+                           JOptionPane.showMessageDialog(null, "seleccione una fila");
+                  }
+         }//GEN-LAST:event_jButton3ActionPerformed
+
+         private void buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarKeyTyped
+                  // TODO add your handling code here:
+                  int pos = buscar.getCaretPosition();
+                  String parametro = (buscar.getText().substring(0, pos) + evt.getKeyChar() + buscar.getText().substring(pos)).trim();
+
+                  if (parametro.trim().length() == 0) {
+                          control.fillTable2(tabla, "select * from criterio");
+
+                  } else {
+
+                           String sql ="select * from criterio where nomcrite like '%"+parametro+"%'";
+                           control.fillTable2(tabla, sql);
+
+                  }
+         }//GEN-LAST:event_buscarKeyTyped
 
          /**
           * @param args the command line arguments
@@ -188,7 +289,10 @@ public class criterio extends javax.swing.JFrame {
          }
 
          // Variables declaration - do not modify//GEN-BEGIN:variables
+         private javax.swing.JTextField buscar;
          private javax.swing.JButton jButton1;
+         private javax.swing.JButton jButton2;
+         private javax.swing.JButton jButton3;
          private javax.swing.JLabel jLabel1;
          private javax.swing.JLabel jLabel2;
          private javax.swing.JLabel jLabel3;

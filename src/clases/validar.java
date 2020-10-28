@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class validar {
 
-         public static boolean esCajaVacio(JTextField... field) {
+         public static boolean texfielVacio(JTextField... field) {
                   boolean retornar = false;
                   String mensaje = "los  campos : ";
                   for (int i = 0; i <= field.length - 1; i++) {

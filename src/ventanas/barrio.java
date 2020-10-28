@@ -6,6 +6,7 @@
 package ventanas;
 
 import clases.control;
+import clases.validar;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,8 +22,8 @@ public class barrio extends javax.swing.JFrame {
                   initComponents();
                   control.fillCombo(cb_ciudad, "select nomciud from ciudad");
                   control.fillTable2(jTable1, "select * from v_barrio");
-                      setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                    setLocationRelativeTo(null);
+                  setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                  setLocationRelativeTo(null);
          }
 
          /**
@@ -45,6 +46,7 @@ public class barrio extends javax.swing.JFrame {
                   jScrollPane1 = new javax.swing.JScrollPane();
                   jTable1 = new javax.swing.JTable();
                   jLabel3 = new javax.swing.JLabel();
+                  buscar = new javax.swing.JTextField();
 
                   setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,8 +64,18 @@ public class barrio extends javax.swing.JFrame {
                   });
 
                   jButton2.setText("actualizar");
+                  jButton2.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jButton2ActionPerformed(evt);
+                           }
+                  });
 
                   jButton3.setText("elimnar");
+                  jButton3.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jButton3ActionPerformed(evt);
+                           }
+                  });
 
                   jTable1.setModel(new javax.swing.table.DefaultTableModel(
                            new Object [][] {
@@ -76,9 +88,20 @@ public class barrio extends javax.swing.JFrame {
                                     "Title 1", "Title 2", "Title 3", "Title 4"
                            }
                   ));
+                  jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+                           public void mousePressed(java.awt.event.MouseEvent evt) {
+                                    jTable1MousePressed(evt);
+                           }
+                  });
                   jScrollPane1.setViewportView(jTable1);
 
                   jLabel3.setText("ingresar barrios");
+
+                  buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+                           public void keyTyped(java.awt.event.KeyEvent evt) {
+                                    buscarKeyTyped(evt);
+                           }
+                  });
 
                   javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                   getContentPane().setLayout(layout);
@@ -108,11 +131,13 @@ public class barrio extends javax.swing.JFrame {
                                                                         .addGap(18, 18, 18)
                                                                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                              .addGroup(layout.createSequentialGroup()
-                                                      .addGap(29, 29, 29)
-                                                      .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                             .addGroup(layout.createSequentialGroup()
                                                       .addGap(227, 227, 227)
-                                                      .addComponent(jLabel3)))
+                                                      .addComponent(jLabel3))
+                                             .addGroup(layout.createSequentialGroup()
+                                                      .addGap(29, 29, 29)
+                                                      .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                               .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
+                                                               .addComponent(buscar))))
                                     .addContainerGap(21, Short.MAX_VALUE))
                   );
                   layout.setVerticalGroup(
@@ -137,9 +162,11 @@ public class barrio extends javax.swing.JFrame {
                                              .addComponent(jButton1)
                                              .addComponent(jButton2)
                                              .addComponent(jButton3))
-                                    .addGap(42, 42, 42)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap(26, Short.MAX_VALUE))
+                                    .addContainerGap(20, Short.MAX_VALUE))
                   );
 
                   pack();
@@ -168,6 +195,68 @@ public class barrio extends javax.swing.JFrame {
                            JOptionPane.showMessageDialog(null, "llene el campo barrio");
                   }
          }//GEN-LAST:event_jButton1ActionPerformed
+
+         private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+                  // TODO add your handling code here:
+
+                  if (jTable1.getSelectedRowCount() > 0) {
+                           if (txt_barrio.getText().trim().length() != 0) {
+                                    if (cb_ciudad.getSelectedIndex() != -1) {
+
+                                             String sql = String.format("update barrio set nombarrio='%s' , idciudad=(select idCiudad from ciudad  where nomciud ='%s') where idbarrio=%s",
+                                                     txt_barrio.getText().trim(), cb_ciudad.getSelectedItem().toString(), jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                                             if (control.update(sql) > 0) {
+                                                      JOptionPane.showMessageDialog(null, "se actualizo correctamente");
+                                                      control.fillTable2(jTable1, "select * from v_barrio");
+                                             }
+                                    } else {
+
+                                             JOptionPane.showMessageDialog(null, "seleccione el combo");
+                                    }
+                           } else {
+                                    JOptionPane.showMessageDialog(null, "llene el campo barrio");
+                           }
+                  } else {
+                           JOptionPane.showMessageDialog(null, "seleccione la tabla primero");
+                  }
+         }//GEN-LAST:event_jButton2ActionPerformed
+
+         private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+                  // TODO add your handling code here:
+
+                  cb_ciudad.setSelectedItem(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+                  txt_barrio.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
+         }//GEN-LAST:event_jTable1MousePressed
+
+         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+                  // TODO add your handling code here:
+                  if (jTable1.getSelectedRowCount() > 0) {
+                           String sql = String.format("delete from barrio where idbarrio =%s", jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                           if (control.update(sql) > 0) {
+                                    control.fillTable2(jTable1, "select * from v_barrio");
+                                    JOptionPane.showMessageDialog(null, "se borro correctamente");
+                           }
+                  } else {
+                           JOptionPane.showMessageDialog(null, "seleccione la tabla primero");
+                  }
+         }//GEN-LAST:event_jButton3ActionPerformed
+
+         private void buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarKeyTyped
+                  // TODO add your handling code here:
+
+                  int pos = buscar.getCaretPosition();
+                  String parametro = (buscar.getText().substring(0, pos) + evt.getKeyChar() + buscar.getText().substring(pos)).trim();
+
+                  if (parametro.trim().length() == 0) {
+                           control.fillTable2(jTable1, "select * from v_barrio");
+
+                  } else {
+
+                           String sql = "select * from v_barrio where barrio like '%" + parametro + "%' or ciudad like '%" + parametro + "%'";
+                           control.fillTable2(jTable1, sql);
+
+                  }
+         }//GEN-LAST:event_buscarKeyTyped
 
          /**
           * @param args the command line arguments
@@ -205,6 +294,7 @@ public class barrio extends javax.swing.JFrame {
          }
 
          // Variables declaration - do not modify//GEN-BEGIN:variables
+         private javax.swing.JTextField buscar;
          private javax.swing.JComboBox<String> cb_ciudad;
          private javax.swing.JButton jButton1;
          private javax.swing.JButton jButton2;

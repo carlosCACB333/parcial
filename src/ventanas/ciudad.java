@@ -22,8 +22,8 @@ public class ciudad extends javax.swing.JFrame {
                   initComponents();
                   control.fillTable2(tabla, "select * from ciudad");
                   validar.ocultarColumna(tabla, 0);
-                    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                    setLocationRelativeTo(null);
+                  setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                  setLocationRelativeTo(null);
          }
 
          /**
@@ -44,6 +44,7 @@ public class ciudad extends javax.swing.JFrame {
                   jScrollPane1 = new javax.swing.JScrollPane();
                   tabla = new javax.swing.JTable();
                   jLabel2 = new javax.swing.JLabel();
+                  buscar = new javax.swing.JTextField();
 
                   setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +91,12 @@ public class ciudad extends javax.swing.JFrame {
 
                   jLabel2.setText("registrar ciudades");
 
+                  buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+                           public void keyTyped(java.awt.event.KeyEvent evt) {
+                                    buscarKeyTyped(evt);
+                           }
+                  });
+
                   javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                   getContentPane().setLayout(layout);
                   layout.setHorizontalGroup(
@@ -110,12 +117,15 @@ public class ciudad extends javax.swing.JFrame {
                                                                         .addGap(28, 28, 28)
                                                                         .addComponent(ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                              .addGroup(layout.createSequentialGroup()
-                                                      .addGap(56, 56, 56)
-                                                      .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                             .addGroup(layout.createSequentialGroup()
                                                       .addGap(310, 310, 310)
                                                       .addComponent(jLabel2)))
-                                    .addContainerGap(39, Short.MAX_VALUE))
+                                    .addContainerGap(309, Short.MAX_VALUE))
+                           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
+                                             .addComponent(buscar))
+                                    .addGap(46, 46, 46))
                   );
                   layout.setVerticalGroup(
                            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,9 +141,11 @@ public class ciudad extends javax.swing.JFrame {
                                              .addComponent(jButton1)
                                              .addComponent(jButton2)
                                              .addComponent(jButton3))
-                                    .addGap(18, 18, 18)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                                    .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap(168, Short.MAX_VALUE))
+                                    .addGap(70, 70, 70))
                   );
 
                   pack();
@@ -179,15 +191,15 @@ public class ciudad extends javax.swing.JFrame {
          private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
                   // TODO add your handling code here:
                   if (tabla.getSelectedRowCount() == 1) {
-                           String sql = String.format("delete from ciudad where idciudad=%s", 
+                           String sql = String.format("delete from ciudad where idciudad=%s",
                                    tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
                            if (control.update(sql) > 0) {
                                     JOptionPane.showMessageDialog(null, "se borro correctamente");
-                                       control.fillTable2(tabla, "select * from ciudad");
+                                    control.fillTable2(tabla, "select * from ciudad");
                                     validar.ocultarColumna(tabla, 0);
                            } else {
                                     JOptionPane.showMessageDialog(null, "no se pudo borrar");
-                                 
+
                            }
                   } else {
                            JOptionPane.showMessageDialog(null, "seleccionar una fila de la tabla");
@@ -196,8 +208,25 @@ public class ciudad extends javax.swing.JFrame {
 
          private void tablaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMousePressed
                   // TODO add your handling code here:
-                  ciudad.setText( tabla.getValueAt(tabla.getSelectedRow(), 1).toString());
+                  ciudad.setText(tabla.getValueAt(tabla.getSelectedRow(), 1).toString());
          }//GEN-LAST:event_tablaMousePressed
+
+         private void buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarKeyTyped
+                  // TODO add your handling code here:
+                  int pos = buscar.getCaretPosition();
+                  String parametro = (buscar.getText().substring(0, pos) + evt.getKeyChar() + buscar.getText().substring(pos)).trim();
+
+                  if (parametro.trim().length() == 0) {
+                           control.fillTable2(tabla, "select * from ciudad");
+                           validar.ocultarColumna(tabla, 0);
+                  } else {
+
+                           String sql = "select * from ciudad where nomciud like '%" + parametro + "%'";
+                           control.fillTable2(tabla, sql);
+                           validar.ocultarColumna(tabla, 0);
+
+                  }
+         }//GEN-LAST:event_buscarKeyTyped
 
          /**
           * @param args the command line arguments
@@ -235,6 +264,7 @@ public class ciudad extends javax.swing.JFrame {
          }
 
          // Variables declaration - do not modify//GEN-BEGIN:variables
+         private javax.swing.JTextField buscar;
          private javax.swing.JTextField ciudad;
          private javax.swing.JButton jButton1;
          private javax.swing.JButton jButton2;

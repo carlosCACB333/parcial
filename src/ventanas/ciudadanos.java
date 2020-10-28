@@ -25,9 +25,9 @@ public class ciudadanos extends javax.swing.JFrame {
                   cb_genero.removeAllItems();
                   cb_genero.addItem("masculino");
                   cb_genero.addItem("femenino");
-                  
-                    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                    setLocationRelativeTo(null);
+
+                  setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                  setLocationRelativeTo(null);
          }
 
          /**
@@ -59,6 +59,7 @@ public class ciudadanos extends javax.swing.JFrame {
                   jButton4 = new javax.swing.JButton();
                   jScrollPane1 = new javax.swing.JScrollPane();
                   tabla = new javax.swing.JTable();
+                  buscar = new javax.swing.JTextField();
 
                   setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                   getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -127,6 +128,11 @@ public class ciudadanos extends javax.swing.JFrame {
                   getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, -1, -1));
 
                   jButton2.setText("actualizar");
+                  jButton2.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jButton2ActionPerformed(evt);
+                           }
+                  });
                   getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, -1));
 
                   jButton3.setText("eliminar");
@@ -138,6 +144,11 @@ public class ciudadanos extends javax.swing.JFrame {
                   getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
 
                   jButton4.setText("cancelar");
+                  jButton4.addActionListener(new java.awt.event.ActionListener() {
+                           public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                    jButton4ActionPerformed(evt);
+                           }
+                  });
                   getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, -1, -1));
 
                   tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -151,9 +162,21 @@ public class ciudadanos extends javax.swing.JFrame {
                                     "Title 1", "Title 2", "Title 3", "Title 4"
                            }
                   ));
+                  tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+                           public void mousePressed(java.awt.event.MouseEvent evt) {
+                                    tablaMousePressed(evt);
+                           }
+                  });
                   jScrollPane1.setViewportView(tabla);
 
                   getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 700, 270));
+
+                  buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+                           public void keyTyped(java.awt.event.KeyEvent evt) {
+                                    buscarKeyTyped(evt);
+                           }
+                  });
+                  getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 700, -1));
 
                   pack();
          }// </editor-fold>//GEN-END:initComponents
@@ -165,7 +188,7 @@ public class ciudadanos extends javax.swing.JFrame {
          private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                   // TODO add your handling code here:
 
-                  if (!validar.esCajaVacio(txt_apell, txt_dni, txt_nombre)) {
+                  if (!validar.texfielVacio(txt_apell, txt_dni, txt_nombre)) {
                            if (cb_barrio.getSelectedIndex() != -1 && cb_genero.getSelectedIndex() != -1) {
 
                                     if (txt_dni.getText().trim().length() == 8) {
@@ -176,8 +199,9 @@ public class ciudadanos extends javax.swing.JFrame {
 
                                              control.update(sql);
                                              control.fillTable2(tabla, "select * from v_ciudadano");
+
                                     } else {
-                                             JOptionPane.showMessageDialog(null, "el dni solo es de 8 dijitos");
+                                             JOptionPane.showMessageDialog(null, "el dni es de 8 dijitos");
                                     }
                            } else {
                                     JOptionPane.showMessageDialog(null, "seleccione los combos");
@@ -190,6 +214,22 @@ public class ciudadanos extends javax.swing.JFrame {
 
          private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
                   // TODO add your handling code here:
+                  if (tabla.getSelectedRowCount() > 0) {
+
+                           String sql = String.format("delete from ciudadano where idciudadano=%s", tabla.getValueAt(tabla.getSelectedRow(), 0));
+                           int res = control.update(sql);
+
+                           sql = String.format(" delete from persona where dni='%s'", tabla.getValueAt(tabla.getSelectedRow(), 1).toString());
+                           int res1 = control.update(sql);
+
+                           if (res > 0 && res1 > 0) {
+                                    JOptionPane.showMessageDialog(null, "se eliminó correctamente");
+                                    control.fillTable2(tabla, "select * from v_ciudadano");
+                           }
+
+                  } else {
+                           JOptionPane.showMessageDialog(null, "seleccione la fila a borrar");
+                  }
          }//GEN-LAST:event_jButton3ActionPerformed
 
          private void txt_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_dniActionPerformed
@@ -205,6 +245,87 @@ public class ciudadanos extends javax.swing.JFrame {
                   }
 
          }//GEN-LAST:event_txt_dniKeyTyped
+
+         private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+                  // TODO add your handling code here:
+                  if (tabla.getSelectedRowCount() > 0) {
+
+                           if (!validar.texfielVacio(txt_apell, txt_dni, txt_nombre)) {
+                                    if (cb_barrio.getSelectedIndex() != -1 && cb_genero.getSelectedIndex() != -1) {
+                                             if (txt_dni.getText().trim().length() == 8) {
+
+                                                      String sql = String.format("update persona set dni='%s',nom='%s',apell='%s',dir='%s',gen='%s' where dni='%s'",
+                                                              txt_dni.getText().trim(), txt_nombre.getText().trim(), txt_apell.getText().trim(), txt_dir.getText().trim(),
+                                                              cb_genero.getSelectedItem().toString(), tabla.getValueAt(tabla.getSelectedRow(), 1).toString());
+
+                                                      int res = control.update(sql);
+
+                                                      sql = String.format("update ciudadano set idbarrio=(select idBarrio from barrio  where nombarrio='%s'),"
+                                                              + "idpersona=(select idpersona from persona where dni='%s') where idciudadano=%s",
+                                                              cb_barrio.getSelectedItem().toString(), txt_dni.getText().trim(),
+                                                              tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
+                                                      System.out.println(sql);
+                                                      int res1 = control.update(sql);
+
+                                                      if (res > 0 && res1 > 0) {
+                                                               JOptionPane.showMessageDialog(null, "se actualizó correctamente");
+                                                               control.fillTable2(tabla, "select * from v_ciudadano");
+                                                      }
+
+                                             } else {
+                                                      JOptionPane.showMessageDialog(null, "el dni es de 8 dijitos");
+                                             }
+                                    } else {
+                                             JOptionPane.showMessageDialog(null, "seleccione los combos");
+                                    }
+
+                           } else {
+
+                           }
+
+                  } else {
+                           JOptionPane.showMessageDialog(null, "seleccione la la tabla primero");
+                  }
+         }//GEN-LAST:event_jButton2ActionPerformed
+
+         private void tablaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMousePressed
+                  // TODO add your handling code here:
+                  txt_dni.setText(tabla.getValueAt(tabla.getSelectedRow(), 1).toString());
+                  txt_nombre.setText(tabla.getValueAt(tabla.getSelectedRow(), 2).toString());
+                  txt_apell.setText(tabla.getValueAt(tabla.getSelectedRow(), 3).toString());
+                  txt_dir.setText(tabla.getValueAt(tabla.getSelectedRow(), 5).toString());
+                  cb_genero.setSelectedItem(tabla.getValueAt(tabla.getSelectedRow(), 4).toString());
+                  cb_barrio.setSelectedItem(tabla.getValueAt(tabla.getSelectedRow(), 6).toString());
+
+
+         }//GEN-LAST:event_tablaMousePressed
+
+         private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+                  // TODO add your handling code here:
+                  txt_dni.setText("");
+                  txt_nombre.setText("");
+                  txt_apell.setText("");
+                  txt_dir.setText("");
+                  cb_barrio.setSelectedIndex(-1);
+                  tabla.getSelectionModel().removeSelectionInterval(0, tabla.getRowCount());
+
+         }//GEN-LAST:event_jButton4ActionPerformed
+
+         private void buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarKeyTyped
+                  // TODO add your handling code here:
+                      int pos = buscar.getCaretPosition();
+                  String parametro = (buscar.getText().substring(0, pos) + evt.getKeyChar() + buscar.getText().substring(pos)).trim();
+
+                  if (parametro.trim().length() == 0) {
+                           control.fillTable2(tabla, "select * from v_ciudadano");
+                  } else {
+
+                           String sql = "select * from v_ciudadano where nombre like '%"
+                                   + parametro + "%' or dni like '%" + parametro + "%' or apellido like '%" + parametro + "%'";
+                           control.fillTable2(tabla, sql);
+
+                  }
+         }//GEN-LAST:event_buscarKeyTyped
 
          /**
           * @param args the command line arguments
@@ -243,6 +364,7 @@ public class ciudadanos extends javax.swing.JFrame {
          }
 
          // Variables declaration - do not modify//GEN-BEGIN:variables
+         private javax.swing.JTextField buscar;
          private javax.swing.JComboBox<String> cb_barrio;
          private javax.swing.JComboBox<String> cb_genero;
          private javax.swing.JButton jButton1;

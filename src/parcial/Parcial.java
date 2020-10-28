@@ -5,8 +5,8 @@
  */
 package parcial;
 
+import javax.swing.UIManager;
 import ventanas.login;
-
 
 /**
  *
@@ -19,8 +19,18 @@ public class Parcial {
           */
          public static void main(String[] args) {
                   // TODO code application logic here
-                  
+                  try {
+                           for (UIManager.LookAndFeelInfo look : UIManager.getInstalledLookAndFeels()) {
+                                    if ("Nimbus".equals(look.getName())) {
+                                             UIManager.setLookAndFeel(look.getClassName());
+                                    }
+
+                           }
+
+                  } catch (Exception e) {
+                  }
+
                   (new login()).setVisible(true);
          }
-         
+
 }
